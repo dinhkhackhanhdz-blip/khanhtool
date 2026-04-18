@@ -1,16 +1,16 @@
 [
   {
-    "name": "Tool Login TV",
+    "name": "CHUẨN BỊ NỀN CHO TEMUX CHẠY",
     "url": "https://raw.githubusercontent.com/dinhkhackhanhdz-blip/khanhtool/main/khanhtool/update.txt",
     "guide": "Bật ADB trên TV → chạy tool → đăng nhập hệ thống"
   },
   {
-    "name": "IPTV Menu",
+    "name": "CODE NANO CHO TEMUX",
     "url": "https://raw.githubusercontent.com/dinhkhackhanhdz-blip/khanhtool/main/khanhtool/codeandroid.txt",
     "guide": "Mở trên TV → chọn kênh → dùng remote điều khiển"
   },
   {
-    "name": "Project TV Tools",
+    "name": "LỆNH CHẠY TIVI KHÁC",
     "url": "https://raw.githubusercontent.com/dinhkhackhanhdz-blip/khanhtool/main/khanhtool/setup.txt",
     "guide": "Dùng để cài app TV, hỗ trợ Xiaomi / Android TV"
   },
