@@ -15,8 +15,8 @@
     "guide": "Dùng để cài app TV, hỗ trợ Xiaomi / Android TV"
   },
   {
-    "name": "ADB Script Auto",
-    "url": "https://raw.githubusercontent.com/dinhkhackhanhdz-blip/khanhtool/main/khanhtool/adb.txt",
+    "name": "CODE NANO TEMUX V2",
+    "url": "https://raw.githubusercontent.com/khanhitpro/khanhtool/main/khanhtool/temuxv2.txt",
     "guide": "Kết nối thiết bị → chạy script auto cài app"
   },
   {
