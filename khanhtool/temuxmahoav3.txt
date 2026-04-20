@@ -22,7 +22,7 @@ check_key() {
     clear
 
     echo ""
-    echo -e "${CYAN}📺 TV XIAOMI AUTO TOOL${NC}"
+    echo -e "${CYAN}📺 CÔNG CỤ CÀI ĐẶT TIVI XIAOMI BẢN QUYỀN${NC}"
     echo -e "${YELLOW}⚡ CÀI ĐẶT TỰ ĐỘNG - NHANH - ỔN ĐỊNH${NC}"
     echo -e "${GREEN}👨‍💻 KHÁNH IT | 0967.341.608${NC}"
     echo -e "${BLUE}🔧 Hỗ trợ: ADB • APK • TV Android • SYSTEM${NC}"
