@@ -2,21 +2,21 @@
   {
     "name": "CHUẨN BỊ NỀN CHO TEMUX CHẠY",
     "url": "https://raw.githubusercontent.com/dinhkhackhanhdz-blip/khanhtool/main/khanhtool/update.txt",
-    "guide": "Bật ADB trên TV → chạy tool → đăng nhập hệ thống"
+    "guide": "Coppy code này → Paste vào phần mềm vừa cài → Enter để chạy"
   },
   {
     "name": "CODE NANO TEMUX CHUẨN NEW",
     "url": "https://raw.githubusercontent.com/khanhitpro/khanhtool/main/khanhtool/temuxmahoav3.txt",
-    "guide": "Kho app TV dạng menu, chọn app để cài nhanh"
+    "guide": "Coppy code này → Paste vào NANO → Ctrl + X + Enter → Y + Enter"
   },
   {
     "name": "LỆNH CHẠY TIVI KHÁC",
     "url": "https://raw.githubusercontent.com/dinhkhackhanhdz-blip/khanhtool/main/khanhtool/setup.txt",
-    "guide": "Dùng để cài app TV, hỗ trợ Xiaomi / Android TV"
+    "guide": "Nhập mật khẩu để sử dụng hoặc liên hệ: 0967.341.608"
   },
   {
     "name": "CODE NANO TEMUX BẢN DỰ PHÒNG",
     "url": "https://raw.githubusercontent.com/khanhitpro/khanhtool/main/khanhtool/temuxmahoav4.txt",
-    "guide": "Xem video TikTok full màn hình TV, tự next video"
+    "guide": "Coppy code này → Paste vào NANO → Ctrl + X + Enter → Y + Enter"
   }
 ]
