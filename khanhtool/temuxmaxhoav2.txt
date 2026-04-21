@@ -93,11 +93,11 @@ check_update() {
   fi
 }
 
-# ==============================
-# LOAD CORE
-# ==============================
+# ===== LOAD CORE =====
 load_core() {
-  echo -e "${BLUE}📦 ĐANG LOAD CORE...${NC}"
+  echo -e "${BLUE}📦 LOAD CORE...${NC}"
+
+  BASE_URL="https://raw.githubusercontent.com/khanhitxiaomi/khanhitxiaomi/main/khanhxiaomi"
 
   DIR="$HOME/storage/shared/apktool"
   TMP="$DIR/core.txt"
@@ -106,23 +106,32 @@ load_core() {
 
   loading
 
+  # tải file an toàn
   if ! curl -fsSL --connect-timeout 10 "$BASE_URL/core.txt" -o "$TMP"; then
-    echo -e "${RED}❌ Lỗi tải core${NC}"
+    echo -e "${RED}❌ LỖI TẢI CORE${NC}"
     exit 1
   fi
 
-  [ ! -s "$TMP" ] && echo -e "${RED}❌ File rỗng${NC}" && exit 1
+  # kiểm tra file
+  if [ ! -s "$TMP" ]; then
+    echo -e "${RED}❌ FILE CORE RỖNG${NC}"
+    exit 1
+  fi
 
+  # giải mã base64
   CODE=$(base64 -d "$TMP" 2>/dev/null)
 
-  [ -z "$CODE" ] && echo -e "${RED}❌ Decode lỗi${NC}" && exit 1
+  if [ -z "$CODE" ]; then
+    echo -e "${RED}❌ GIẢI MÃ LỖI${NC}"
+    exit 1
+  fi
 
   echo -e "${GREEN}🚀 KHỞI ĐỘNG TOOL...${NC}"
   sleep 1
 
-  echo "$CODE" | bash
+  # chạy core
+  bash -c "$CODE"
 }
-
 # ==============================
 # RUN
 # ==============================
