@@ -24,7 +24,7 @@ check_key() {
     echo ""
     echo -e "${CYAN}📺 CÔNG CỤ CÀI ĐẶT TIVI XIAOMI BẢN QUYỀN${NC}"
     echo -e "${YELLOW}⚡ CÀI ĐẶT TỰ ĐỘNG - NHANH - ỔN ĐỊNH${NC}"
-    echo -e "${GREEN}👨‍💻 KHÁNH IT | 0967.341.608${NC}"
+    echo -e "${GREEN}👨‍💻 KHÁNH IT | 0967.341.608 | 4.68${NC}"
     echo -e "${BLUE}🔧 Hỗ trợ: ADB • APK • TV Android • SYSTEM${NC}"
     echo ""
     echo -e "${BLUE}🔑 HƯỚNG DẪN NHẬP MẬT KHẨU:${NC}"
@@ -146,7 +146,21 @@ load_core() {
 # ==============================
 clear
 echo ""
-echo -e "${CYAN}📺 TRÌNH TẢI TOOL TV XIAOMI${NC}"
+echo ""
+echo -e "${GREEN}🚀 ĐÂY LÀ TOOL TIVI XIAOMI BẢN QUYỀN${NC}"
+echo -e "${CYAN}📺 Công cụ cài đặt & tối ưu Tivi Xiaomi${NC}"
+
+echo ""
+echo -e "${YELLOW}⚡ Tự động hoá toàn bộ: cài app • cấp quyền • tối ưu hệ thống${NC}"
+echo -e "${WHITE}🔧 Hỗ trợ: ADB • APK • Android TV • TV nội địa / quốc tế${NC}"
+
+echo ""
+echo -e "${GREEN}👨‍💻 Khánh IT${NC} ${WHITE}| ☎ 0967.341.608${NC} ${WHITE}| 🔢 Phiên bản: 4.68${NC}"
+
+echo ""
+echo -e "${BLUE}📡 Trạng thái: Đang khởi động tool...${NC}"
+echo -e "${CYAN}⏳ Vui lòng chờ trong giây lát${NC}"
+echo ""
 echo -e "${GREEN}⚡ Đang khởi động hệ thống...${NC}"
 echo ""
 
