@@ -14,7 +14,7 @@ WHITE='\033[1;37m'
 NC='\033[0m'
 
 # ==============================
-# HIỆU ỨNG LOADING
+# LOADING
 # ==============================
 loading() {
   echo -ne "${CYAN}⏳ Đang xử lý"
@@ -26,7 +26,7 @@ loading() {
 }
 
 # ==============================
-# KIỂM TRA KEY
+# CHECK KEY
 # ==============================
 check_key() {
   DEVICE=$(getprop ro.serialno 2>/dev/null || hostname)
@@ -37,85 +37,58 @@ check_key() {
     echo ""
     echo -e "${CYAN}📺 CÔNG CỤ CÀI ĐẶT TIVI XIAOMI BẢN QUYỀN${NC}"
     echo -e "${YELLOW}⚡ TỰ ĐỘNG - NHANH - ỔN ĐỊNH - UPDATE${NC}"
-    echo -e "${GREEN}👨‍💻 Khánh IT | 0967.341.608 | 4.68${NC}"
+    echo -e "${GREEN}👨‍💻 Khánh IT | 0967.341.608 | ${VERSION}${NC}"
     echo ""
 
     echo -e "${BLUE}🔑 VUI LÒNG NHẬP MẬT KHẨU${NC}"
-    echo -e "${WHITE}➤ Nhập đúng KEY để sử dụng tool${NC}"
     echo -e "${WHITE}➤ KEY phân biệt chữ HOA / chữ thường${NC}"
-    echo -e "${WHITE}➤ Nhập sai sẽ yêu cầu nhập lại${NC}"
-    echo ""
-    echo -e "${WHITE}➤ KEY DÙNG THỬ: 123${NC}"
     echo ""
     read -p "👉 Nhập KEY: " USER_KEY
     USER_KEY=$(echo "$USER_KEY" | xargs)
 
-    if [ -z "$USER_KEY" ]; then
-      echo -e "${RED}❌ Bạn chưa nhập KEY!${NC}"
-      sleep 1.5
-      continue
-    fi
+    [ -z "$USER_KEY" ] && echo -e "${RED}❌ Chưa nhập KEY${NC}" && sleep 1.5 && continue
 
     loading
 
-    DATA=$(curl -s --connect-timeout 5 "$BASE_URL/keys.txt")
+    DATA=$(curl -fsSL --connect-timeout 5 "$BASE_URL/keys.txt")
 
-    if [ -z "$DATA" ]; then
-      echo -e "${RED}❌ Lỗi kết nối server!${NC}"
-      sleep 2
-      continue
-    fi
+    [ -z "$DATA" ] && echo -e "${RED}❌ Lỗi server${NC}" && sleep 2 && continue
 
     LINE=$(echo "$DATA" | grep -m 1 "^${USER_KEY}|")
 
-    if [ -z "$LINE" ]; then
-      echo -e "${RED}❌ KEY KHÔNG ĐÚNG!${NC}"
-      echo -e "${YELLOW}👉 Vui lòng nhập lại...${NC}"
-      sleep 1.5
-      continue
-    fi
+    [ -z "$LINE" ] && echo -e "${RED}❌ KEY sai${NC}" && sleep 1.5 && continue
 
     STATUS=$(echo "$LINE" | cut -d'|' -f2)
     KEY_DEVICE=$(echo "$LINE" | cut -d'|' -f3)
 
-    if [ "$STATUS" != "active" ]; then
-      echo -e "${RED}❌ KEY ĐÃ BỊ KHÓA!${NC}"
-      sleep 1.5
-      continue
-    fi
+    [ "$STATUS" != "active" ] && echo -e "${RED}❌ KEY bị khóa${NC}" && sleep 1.5 && continue
 
     if [ -n "$KEY_DEVICE" ] && [ "$KEY_DEVICE" != "$DEVICE" ]; then
-      echo -e "${RED}❌ KEY KHÔNG DÙNG CHO THIẾT BỊ NÀY!${NC}"
+      echo -e "${RED}❌ Sai thiết bị${NC}"
       sleep 1.5
       continue
     fi
 
-    echo ""
-    echo -e "${GREEN}=============================="
-    echo -e "   🎉 XÁC THỰC THÀNH CÔNG"
-    echo -e "==============================${NC}"
+    echo -e "${GREEN}✅ XÁC THỰC THÀNH CÔNG${NC}"
     sleep 1
     break
   done
 }
 
 # ==============================
-# KIỂM TRA CẬP NHẬT
+# UPDATE
 # ==============================
 check_update() {
-  NEW_VERSION=$(curl -s --connect-timeout 5 "$BASE_URL/version.txt")
+  NEW_VERSION=$(curl -fsSL --connect-timeout 5 "$BASE_URL/version.txt")
 
-  if [ -z "$NEW_VERSION" ]; then
-    echo -e "${RED}❌ Không kiểm tra được update${NC}"
-    return
-  fi
+  [ -z "$NEW_VERSION" ] && return
 
   if [ "$NEW_VERSION" != "$VERSION" ]; then
-    echo -e "${YELLOW}🚀 ĐANG CẬP NHẬT TOOL...${NC}"
+    echo -e "${YELLOW}🚀 ĐANG UPDATE...${NC}"
     loading
-    curl -s -o tool.sh "$BASE_URL/tool.sh"
+    curl -fsSL -o tool.sh "$BASE_URL/tool.sh"
     chmod +x tool.sh
-    echo -e "${GREEN}✅ ĐÃ CẬP NHẬT - MỞ LẠI TOOL${NC}"
+    echo -e "${GREEN}✅ Update xong - chạy lại${NC}"
     exit 0
   fi
 }
@@ -126,50 +99,46 @@ check_update() {
 load_core() {
   echo -e "${BLUE}📦 ĐANG LOAD CORE...${NC}"
 
-  TMP="/sdcard/Download/core.txt"
+  DIR="$HOME/storage/shared/apktool"
+  TMP="$DIR/core.txt"
+
+  mkdir -p "$DIR"
 
   loading
 
-  curl -s --connect-timeout 10 "$BASE_URL/core.txt" -o "$TMP"
-
-  if [ ! -s "$TMP" ]; then
-    echo -e "${RED}❌ LOAD CORE THẤT BẠI${NC}"
+  if ! curl -fsSL --connect-timeout 10 "$BASE_URL/core.txt" -o "$TMP"; then
+    echo -e "${RED}❌ Lỗi tải core${NC}"
     exit 1
   fi
+
+  [ ! -s "$TMP" ] && echo -e "${RED}❌ File rỗng${NC}" && exit 1
 
   CODE=$(base64 -d "$TMP" 2>/dev/null)
 
-  if [ -z "$CODE" ]; then
-    echo -e "${RED}❌ GIẢI MÃ LỖI${NC}"
-    exit 1
-  fi
+  [ -z "$CODE" ] && echo -e "${RED}❌ Decode lỗi${NC}" && exit 1
 
   echo -e "${GREEN}🚀 KHỞI ĐỘNG TOOL...${NC}"
   sleep 1
 
-  bash -c "$CODE"
+  echo "$CODE" | bash
+
+  # xoá sau khi chạy (anti copy)
+  rm -f "$TMP"
 }
 
 # ==============================
 # RUN
 # ==============================
 clear
-echo ""
-echo -e "${GREEN}🚀 ĐÂY LÀ TOOL TIVI XIAOMI BẢN QUYỀN${NC}"
-echo -e "${CYAN}📺 Công cụ cài đặt & tối ưu Tivi Xiaomi${NC}"
 
+echo -e "${GREEN}🚀 TOOL TIVI XIAOMI${NC}"
+echo -e "${CYAN}📺 Cài đặt & tối ưu tự động${NC}"
 echo ""
-echo -e "${YELLOW}⚡ Tự động hoá toàn bộ: cài app • cấp quyền • tối ưu hệ thống${NC}"
-echo -e "${WHITE}🔧 Hỗ trợ: ADB • APK • Android TV • TV nội địa / quốc tế${NC}"
-
+echo -e "${YELLOW}⚡ ADB • APK • Android TV${NC}"
 echo ""
-echo -e "${GREEN}👨‍💻 Khánh IT${NC} ${WHITE}| ☎ 0967.341.608${NC} ${WHITE}| 🔢 Phiên bản: 4.68${NC}"
-
+echo -e "${GREEN}👨‍💻 Khánh IT | ${VERSION}${NC}"
 echo ""
-echo -e "${BLUE}📡 Trạng thái: Đang khởi động tool...${NC}"
-echo -e "${CYAN}⏳ Vui lòng chờ trong giây lát${NC}"
-echo ""
-
+echo -e "${BLUE}⏳ Đang khởi động...${NC}"
 
 check_key
 check_update
