@@ -105,33 +105,43 @@ done
  done
 }
 
-# ==============================
-# LOAD CORE (GitHub Release)
-# ==============================
+# ===== LOAD CORE =====
 load_core() {
-  URL="https://github.com/khanhitpro/khanhtool/releases/download/adb/core.txt"
-  TMP="/storage/shared/apktool/core.txt"
+  echo -e "${BLUE}📦 LOAD CORE...${NC}"
 
-  echo -e "${YELLOW}📥 Đang tải core...${NC}"
-  curl -fsSL "$URL" -o "$TMP" || {
-    echo -e "${RED}❌ Tải thất bại${NC}"
+  BASE_URL="https://raw.githubusercontent.com/khanhitpro/khanhtool/main/android"
+
+  DIR="$HOME/storage/shared/apktool"
+  TMP="$DIR/core.txt"
+
+  mkdir -p "$DIR"
+
+  loading
+
+  # tải file an toàn
+  if ! curl -fsSL --connect-timeout 10 "$BASE_URL/core.txt" -o "$TMP"; then
+    echo -e "${RED}❌ LỖI TẢI CORE${NC}"
     exit 1
-  }
+  fi
 
-  [ ! -s "$TMP" ] && {
-    echo -e "${RED}❌ File rỗng${NC}"
+  # kiểm tra file
+  if [ ! -s "$TMP" ]; then
+    echo -e "${RED}❌ FILE CORE RỖNG${NC}"
     exit 1
-  }
+  fi
 
-  echo -e "${CYAN}🔓 Đang giải mã...${NC}"
+  # giải mã base64
   CODE=$(base64 -d "$TMP" 2>/dev/null)
 
-  [ -z "$CODE" ] && {
-    echo -e "${RED}❌ Decode lỗi${NC}"
+  if [ -z "$CODE" ]; then
+    echo -e "${RED}❌ GIẢI MÃ LỖI${NC}"
     exit 1
-  }
+  fi
 
-  echo -e "${GREEN}🚀 Chạy core...${NC}"
+  echo -e "${GREEN}🚀 KHỞI ĐỘNG TOOL...${NC}"
+  sleep 1
+
+  # chạy core
   bash -c "$CODE"
 }
 
