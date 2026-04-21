@@ -121,9 +121,6 @@ load_core() {
   sleep 1
 
   echo "$CODE" | bash
-
-  # xoá sau khi chạy (anti copy)
-  rm -f "$TMP"
 }
 
 # ==============================
