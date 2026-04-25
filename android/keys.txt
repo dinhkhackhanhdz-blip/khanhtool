@@ -7,3 +7,4 @@ TEST|block||0
 123|active||999
 vip|active||999
 1234|block||0
+dungthu|active||999
